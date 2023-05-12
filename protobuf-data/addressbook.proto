@@ -1,0 +1,34 @@
+// 文件：addressbook.proto
+syntax = "proto3";
+// 指定 protobuf 包名，防止有相同类名的 message 定义
+package com.example.protos;
+// 是否生成多个文件
+option java_multiple_files = true;
+// 生成的文件存放在哪个包下
+option java_package = "com.example.protos";
+// 生成的类名，如果没有指定，会根据文件名自动转驼峰来命名
+option java_outer_classname = "AddressBookProtos";
+
+message Person {
+  // =1，=2 作为序列化后的二进制编码中的字段的唯一标签，也因此，1-15 比 16 会少一个字节，所以尽量使用 1-15 来指定常用字段。
+  optional int32 id = 1;
+  optional string name = 2;
+  optional string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    optional string number = 1;
+    optional PhoneType type = 2;
+  }
+
+  repeated PhoneNumber phones = 4;
+}
+
+message AddressBook {
+  repeated Person people = 1;
+}

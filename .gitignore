@@ -1,0 +1,7 @@
+.idea
+
+# java
+target/
+
+# python
+venv/
